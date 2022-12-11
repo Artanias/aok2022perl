@@ -3,7 +3,6 @@
 use strict;
 use warnings;
 use 5.010;
-use Data::Dumper;
 
 my $example_path = "example.txt";
 my $data_path = "data.txt";
