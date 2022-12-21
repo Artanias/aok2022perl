@@ -1,0 +1,16 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use 5.010;
+
+
+die "Please provide the day number." if $#ARGV + 1 != 1;
+
+my $day = sprintf("%02d", $ARGV[0]);
+die "Provided day must in range from 1 to 25." if $day < 1 or $day > 25;
+
+for my $part (1..2) {
+    system("perl", "puzzles/day$day/part$part.pm", "puzzles/day$day/example.txt");
+    system("perl", "puzzles/day$day/part$part.pm", "puzzles/day$day/data.txt");
+}
