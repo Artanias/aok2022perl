@@ -4,10 +4,15 @@ use strict;
 use warnings;
 use 5.010;
 
+use Getopt::Long;
 
-die "Please provide the day number." if $#ARGV + 1 != 1;
+my $day;
+GetOptions ("day=i" => \$day)
+    or die("Error in command line arguments.");
 
-my $day = sprintf("%02d", $ARGV[0]);
+die "Please provide the day number by option '--day'." if ! defined $day;
+
+$day = sprintf("%02d", $day);
 die "Provided day must in range from 1 to 25." if $day < 1 or $day > 25;
 
 for my $part (1..2) {

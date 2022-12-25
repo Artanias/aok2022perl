@@ -4,7 +4,6 @@ use strict;
 use warnings;
 use 5.010;
 
-my $filename = "data.txt";
 my $win_rules = {
 	rock => "scissors",
 	paper => "rock",
@@ -33,17 +32,14 @@ my $choice_score = {
 	paper => 2,
 	scissors => 3
 };
-my $handle;
-
-open($handle, "< :encoding(UTF-8)", $filename)
-	|| die "$0: can't open $filename for reading: $!";
-
 my $score = 0;
-while (<$handle>) {
+
+
+while (<>) {
 	my @choices = split " ", $_;
 	
 	my $enemy_choice = $cipher->{$choices[0]};
-        my $your_choice = $cipher->{$choices[1]}{$enemy_choice};
+	my $your_choice = $cipher->{$choices[1]}{$enemy_choice};
 
 	my $you_win = $win_rules->{$your_choice};
 
