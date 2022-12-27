@@ -7,22 +7,31 @@ use 5.010;
 use Getopt::Long;
 
 my $day;
+my $part;
 
 # TODO: add option all
-GetOptions ("day=i" => \$day)
+GetOptions(
+    "day=i" => \$day,
+    "part=i" => \$part
+)
     or die("Error in command line arguments.");
 
 die "Please provide the day number by option '--day'." if ! defined $day;
 
 $day = sprintf("%02d", $day);
 die "Provided day must in range from 1 to 25." if $day < 1 or $day > 25;
+if (defined $part) {
+    die "Provided part must in range from 1 to 2." if $part < 1 or $part > 2;
+}
+
 
 my $day_solutions = "puzzles/day$day";
 
-for my $part (1..2) {
-    my $path_to_part = "$day_solutions/part$part.pm";
+for my $p ( defined $part ? $part : 1..2 ) {
+    my $path_to_part = "$day_solutions/part$p.pm";
     last unless -f $path_to_part;
 
-    system("perl", $path_to_part, "$day_solutions/example.txt");
-    system("perl", $path_to_part, "$day_solutions/data.txt");
+    my $interpreter = "perl";
+    system($interpreter, $path_to_part, "$day_solutions/example.txt");
+    system($interpreter, $path_to_part, "$day_solutions/data.txt");
 }
